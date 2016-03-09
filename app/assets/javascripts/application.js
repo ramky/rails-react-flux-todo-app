@@ -17,4 +17,5 @@
 //= require react_ujs
 //= require components
 //= require lodash.min
+//= require bootstrap.min
 //= require_tree .
