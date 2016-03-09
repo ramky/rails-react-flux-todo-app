@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+Todo.create(name: 'Grocery shopping', checked: false)
+Todo.create(name: 'Cut nails', checked: true)
+Todo.create(name: 'Cooking', checked: false)
+Todo.create(name: 'Workout', checked: true)
