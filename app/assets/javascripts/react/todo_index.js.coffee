@@ -10,7 +10,7 @@ NewTodo = React.createFactory React.createClass
   onInputKeydown: (e) ->
     if e.keyCode == 13 && this.refs.todo.value.length
       TodoActions.submitTodo(this.refs.todo.value)
-      @setState(todoName: '')
+      @setState({ name: '', checked: false })
 
   render: ->
     div className: 'form-group',
@@ -21,7 +21,7 @@ NewTodo = React.createFactory React.createClass
       ref: 'todo',
       className: 'form-control',
       placeholder: 'Enter Todo Name'
-      value: @state.todoName
+      value: @state.name
 
 TodoListItem = React.createFactory React.createClass
   onToggleTodo: ->
