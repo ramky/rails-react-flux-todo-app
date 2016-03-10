@@ -58,7 +58,6 @@ window.TodoIndex = React.createClass
     div className: 'container',
       div className: 'row',
         div className: 'col-xs-12',
-          h1 {}, 'Todo List'
           TodoForm()
           br {}
           TodoList(todos: @state.todos)
