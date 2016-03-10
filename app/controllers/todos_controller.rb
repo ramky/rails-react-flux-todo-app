@@ -12,6 +12,15 @@ class TodosController < ApplicationController
     end
   end
 
+  def update
+    @todo = Todo.find(params[:id])
+    if @todo.update(checked: true)
+      render partial: 'todos/todo', locals: {todo: @todo}
+    else
+      render json: @todo.errors.to_json
+    end
+  end
+
   private
 
   def todo_params

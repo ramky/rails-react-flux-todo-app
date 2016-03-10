@@ -24,9 +24,14 @@ TodoForm = React.createFactory React.createClass
       value: @state.todoName
 
 TodoListItem = React.createFactory React.createClass
+  onCheckTodo: ->
+    TodoActions.checkTodo(@props.todo.id)
+
   render: ->
-    li className: 'list-item',
-      a className: 'btn btn-primary', 'Check'
+    todoItemClasses = 'list-item'
+    todoItemClasses += ' checked' if @props.todo.checked
+    li className: todoItemClasses,
+      a className: 'btn btn-primary', onClick: @onCheckTodo, 'Check'
       span className: 'list-text', @props.todo.name
 
 TodoList = React.createFactory React.createClass

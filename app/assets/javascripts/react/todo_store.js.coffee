@@ -31,7 +31,18 @@ class TodoStore
       error: (response) ->
         console.log('error')
         console.log(response)
+    return false
 
-    return
+  onCheckTodo: (todo_id) ->
+    $.ajax
+      type: 'PUT'
+      url: "todos/#{todo_id}"
+      success: (response) =>
+        _.find(@todos, { id: response.id }).checked = true
+        @emitChange()
+      error: (response) ->
+        console.log('error')
+        console.log(response)
+    return false
 
 window.TodoStore = alt.createStore(TodoStore)
