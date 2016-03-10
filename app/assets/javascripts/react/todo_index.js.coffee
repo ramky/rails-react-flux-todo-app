@@ -1,6 +1,6 @@
 { div, h1, ul, li, a, span, label, input, button, i } = React.DOM
 
-TodoForm = React.createFactory React.createClass
+NewTodo = React.createFactory React.createClass
   getInitialState: ->
     return { name: '', checked: false }
 
@@ -68,5 +68,5 @@ window.TodoIndex = React.createClass
 
   render: ->
     div className: 'outer-container',
-      TodoForm()
+      NewTodo()
       TodoList(todos: @state.todos)
