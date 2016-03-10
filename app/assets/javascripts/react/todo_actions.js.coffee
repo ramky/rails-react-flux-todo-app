@@ -2,7 +2,7 @@ class TodoActions
   constructor: ->
     @generateActions(
       'initData',
-      'submitTodo',
+      'createTodo',
       'toggleTodo'
       'deleteTodo'
     )

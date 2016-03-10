@@ -13,7 +13,7 @@ NewTodo = React.createFactory React.createClass
 
   doSubmitAction: (name) ->
     if name.length
-      TodoActions.submitTodo(this.refs.todo.value)
+      TodoActions.createTodo(this.refs.todo.value)
       @setState({ name: '', checked: false })
 
   newTodoClick: ->

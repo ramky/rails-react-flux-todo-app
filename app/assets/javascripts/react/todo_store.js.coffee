@@ -17,7 +17,7 @@ class TodoStore
   getTodos: () ->
     @getState().todos
 
-  submitTodo: (name) ->
+  createTodo: (name) ->
     $.ajax
       type: 'POST'
       url: '/todos'
