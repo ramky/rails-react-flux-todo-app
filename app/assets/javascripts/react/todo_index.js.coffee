@@ -1,4 +1,4 @@
-{ div, h1, ul, li, a, span, label, input, br } = React.DOM
+{ div, h1, ul, li, a, span, label, input, button, i } = React.DOM
 
 TodoForm = React.createFactory React.createClass
   getInitialState: ->
@@ -28,18 +28,36 @@ TodoListItem = React.createFactory React.createClass
     TodoActions.toggleTodo(@props.todo.id)
 
   render: ->
-    todoItemClasses = 'list-item'
-    btnText         = 'Check'
+    #todoItemClasses = 'list-item'
+    #btnText         = 'Check'
+    #if @props.todo.checked
+    #  todoItemClasses += ' checked'
+    #  btnText = 'Uncheck'
+    #li className: todoItemClasses,
+    #  a className: 'btn btn-primary', onClick: @onToggleTodo, btnText
+    #  span className: 'list-text', @props.todo.name
+
+    inputClassName = 'form-control'
     if @props.todo.checked
-      todoItemClasses += ' checked'
-      btnText = 'Uncheck'
-    li className: todoItemClasses,
-      a className: 'btn btn-primary', onClick: @onToggleTodo, btnText
-      span className: 'list-text', @props.todo.name
+      inputClassName += ' finished'
+    div className: 'input-group input-group-lg',
+      span className: 'input-group-addon',
+        input
+          type: 'checkbox'
+      input
+        type: 'text'
+        value: @props.todo.name
+        className: inputClassName
+      span className: 'input-group-btn',
+        button
+          className: 'btn btn-danger'
+          type: 'button',
+            i
+              className: 'glyphicon glyphicon-remove'
 
 TodoList = React.createFactory React.createClass
   render: ->
-    ul className: 'list-unstyled',
+    div className: 'todos',
       _.map @props.todos, (todo) =>
         TodoListItem(todo: todo)
 
@@ -55,9 +73,6 @@ window.TodoIndex = React.createClass
     @setState(state)
 
   render: ->
-    div className: 'container',
-      div className: 'row',
-        div className: 'col-xs-12',
-          TodoForm()
-          br {}
-          TodoList(todos: @state.todos)
+    div className: 'outer-container',
+      TodoForm()
+      TodoList(todos: @state.todos)

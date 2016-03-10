@@ -1,16 +1,31 @@
-.list-item {
-  margin-bottom: 20px;
-  .btn {
-    margin-right: 10px;
-  }
+.outer-container {
+  width: 80%;
+  margin: 10px auto;
+}
 
-  &.checked {
-    .btn {
-      opacity: .7
-    }
-    .list-text {
-      text-decoration: line-through;
-      color: green;
-    }
-  }
+.finished {
+  text-decoration: line-through;
+  color: lightgray;
+  font-style: italic;
+}
+
+.input-group {
+  margin: 10px 0;
+}
+
+.add-todo-group {
+  margin-bottom: 30px;
+}
+
+.btn-clear-group {
+  margin-top: 30px;
+  text-align: right;
+}
+
+.navbar-img {
+  margin-top: 5px;
+}
+
+.navbar {
+  border-radius: 0;
 }
