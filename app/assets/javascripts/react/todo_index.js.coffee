@@ -37,16 +37,6 @@ NewTodo = React.createFactory React.createClass
           onClick: @newTodoClick,
             i className: 'glyphicon glyphicon-plus'
 
-    #div className: 'form-group',
-    #label {}, 'Enter Todo'
-    #input
-    #  onChange: @onInputChange,
-    #  onKeyDown: @onInputKeydown,
-    #  ref: 'todo',
-    #  className: 'form-control',
-    #  placeholder: 'Enter Todo Name'
-    #  value: @state.name
-
 TodoListItem = React.createFactory React.createClass
   toggleTodo: ->
     TodoActions.toggleTodo(@props.todo.id)
@@ -83,6 +73,17 @@ TodoList = React.createFactory React.createClass
       _.map @props.todos, (todo) =>
         TodoListItem(todo: todo)
 
+ClearCompleted = React.createFactory React.createClass
+  clearCompleted: ->
+    TodoActions.clearCompleted()
+
+  render: ->
+    div className: 'btn-clear-group',
+      button
+        className: 'btn btn-primary btn-clear'
+        onClick: @clearCompleted
+        'Clear Completed'
+
 window.TodoIndex = React.createClass
   getInitialState: ->
     todos: []
@@ -98,3 +99,4 @@ window.TodoIndex = React.createClass
     div className: 'outer-container',
       NewTodo()
       TodoList(todos: @state.todos)
+      ClearCompleted()

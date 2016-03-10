@@ -30,6 +30,15 @@ class TodosController < ApplicationController
     end
   end
 
+  def clear_completed
+    begin
+      Todo.completed.delete_all
+      render json: { status: :ok }.to_json
+    rescue => e
+      render json: e.to_json
+    end
+  end
+
   private
 
   def todo_params

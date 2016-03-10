@@ -58,4 +58,17 @@ class TodoStore
         console.log(response)
     return false
 
+  clearCompleted: ->
+    $.ajax
+      type: 'DELETE'
+      url: '/clear_completed'
+      success: (response) =>
+        _.remove(@todos, (todo) -> todo.checked == true)
+        console.log(@todos)
+        @emitChange()
+      error: (response) ->
+        console.log('error')
+        console.log(response)
+    return false
+
 window.TodoStore = alt.createStore(TodoStore)
