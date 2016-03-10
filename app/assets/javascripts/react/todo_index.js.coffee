@@ -1,11 +1,11 @@
-{ div, h1, ul, li, a, span, label, input } = React.DOM
+{ div, h1, ul, li, a, span, label, input, br } = React.DOM
 
 TodoForm = React.createFactory React.createClass
   getInitialState: ->
-    todoName: ''
+    return { name: '', checked: false }
 
   onInputChange: (e) ->
-    @setState(todoName: e.target.value)
+    @setState({ name: e.target.value, checked: false })
 
   onInputKeydown: (e) ->
     if e.keyCode == 13 && this.refs.todo.value.length
@@ -24,14 +24,17 @@ TodoForm = React.createFactory React.createClass
       value: @state.todoName
 
 TodoListItem = React.createFactory React.createClass
-  onCheckTodo: ->
-    TodoActions.checkTodo(@props.todo.id)
+  onToggleTodo: ->
+    TodoActions.toggleTodo(@props.todo.id)
 
   render: ->
     todoItemClasses = 'list-item'
-    todoItemClasses += ' checked' if @props.todo.checked
+    btnText         = 'Check'
+    if @props.todo.checked
+      todoItemClasses += ' checked'
+      btnText = 'Uncheck'
     li className: todoItemClasses,
-      a className: 'btn btn-primary', onClick: @onCheckTodo, 'Check'
+      a className: 'btn btn-primary', onClick: @onToggleTodo, btnText
       span className: 'list-text', @props.todo.name
 
 TodoList = React.createFactory React.createClass
@@ -57,4 +60,5 @@ window.TodoIndex = React.createClass
         div className: 'col-xs-12',
           h1 {}, 'Todo List'
           TodoForm()
+          br {}
           TodoList(todos: @state.todos)

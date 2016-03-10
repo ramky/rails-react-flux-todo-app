@@ -33,12 +33,12 @@ class TodoStore
         console.log(response)
     return false
 
-  onCheckTodo: (todo_id) ->
+  onToggleTodo: (todo_id) ->
     $.ajax
       type: 'PUT'
       url: "todos/#{todo_id}"
       success: (response) =>
-        _.find(@todos, { id: response.id }).checked = true
+        _.find(@todos, { id: response.id }).checked = response.checked
         @emitChange()
       error: (response) ->
         console.log('error')

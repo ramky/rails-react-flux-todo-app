@@ -14,7 +14,7 @@ class TodosController < ApplicationController
 
   def update
     @todo = Todo.find(params[:id])
-    if @todo.update(checked: true)
+    if @todo.update(checked: !@todo.checked)
       render partial: 'todos/todo', locals: {todo: @todo}
     else
       render json: @todo.errors.to_json
