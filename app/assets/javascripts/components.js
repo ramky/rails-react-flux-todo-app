@@ -1,1 +1,4 @@
-//= require_tree ./components
+//= require lodash.min
+//= require alt.min
+//= require initialize
+//= require_tree ./react
