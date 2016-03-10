@@ -40,7 +40,11 @@ window.TodoIndex = React.createClass
     todos: []
 
   componentWillMount: ->
-    @setState(todos: @props.todos)
+    TodoStore.listen(@onChange)
+    TodoActions.initData(@props)
+
+  onChange: (state) ->
+    @setState(state)
 
   submitTodo: (name) ->
     $.ajax

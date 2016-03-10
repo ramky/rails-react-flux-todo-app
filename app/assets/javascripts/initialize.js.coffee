@@ -1,1 +1,1 @@
-#window.alt = new Alt()
+window.alt = new Alt()
