@@ -8,20 +8,44 @@ NewTodo = React.createFactory React.createClass
     @setState({ name: e.target.value, checked: false })
 
   onInputKeydown: (e) ->
-    if e.keyCode == 13 && this.refs.todo.value.length
+    if e.keyCode == 13 # Return key pressed
+      @doSubmitAction(this.refs.todo.value)
+
+  doSubmitAction: (name) ->
+    if name.length
       TodoActions.submitTodo(this.refs.todo.value)
       @setState({ name: '', checked: false })
 
+  newTodoClick: ->
+    @doSubmitAction(this.refs.todo.value)
+
   render: ->
-    div className: 'form-group',
-    label {}, 'Enter Todo'
-    input
-      onChange: @onInputChange,
-      onKeyDown: @onInputKeydown,
-      ref: 'todo',
-      className: 'form-control',
-      placeholder: 'Enter Todo Name'
-      value: @state.name
+    div className: 'add-todo-group input-group input-group-lg',
+      span className: 'input-group-addon',
+        i className: 'glyphicon glyphicon-list-alt'
+      input
+        value: @state.name
+        onChange: @onInputChange,
+        onKeyDown: @onInputKeydown,
+        ref: 'todo',
+        placeholder: 'Enter New Todo Name'
+        className: 'form-control'
+      span className: 'input-group-btn',
+        button
+          className: 'btn btn-success'
+          type: 'button'
+          onClick: @newTodoClick,
+            i className: 'glyphicon glyphicon-plus'
+
+    #div className: 'form-group',
+    #label {}, 'Enter Todo'
+    #input
+    #  onChange: @onInputChange,
+    #  onKeyDown: @onInputKeydown,
+    #  ref: 'todo',
+    #  className: 'form-control',
+    #  placeholder: 'Enter Todo Name'
+    #  value: @state.name
 
 TodoListItem = React.createFactory React.createClass
   onToggleTodo: ->
