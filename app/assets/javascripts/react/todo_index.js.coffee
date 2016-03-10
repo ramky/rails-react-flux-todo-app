@@ -48,8 +48,11 @@ NewTodo = React.createFactory React.createClass
     #  value: @state.name
 
 TodoListItem = React.createFactory React.createClass
-  onToggleTodo: ->
+  toggleTodo: ->
     TodoActions.toggleTodo(@props.todo.id)
+
+  deleteTodo: ->
+    TodoActions.deleteTodo(@props.todo.id)
 
   render: ->
     inputClassName = 'form-control'
@@ -60,7 +63,7 @@ TodoListItem = React.createFactory React.createClass
       span className: 'input-group-addon',
         input
           type: 'checkbox'
-          onChange: @onToggleTodo
+          onChange: @toggleTodo
           checked: @props.todo.checked
       input
         type: 'text'
@@ -69,6 +72,7 @@ TodoListItem = React.createFactory React.createClass
       span className: 'input-group-btn',
         button
           className: 'btn btn-danger'
+          onClick: @deleteTodo
           type: 'button',
             i
               className: 'glyphicon glyphicon-remove'

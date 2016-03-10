@@ -4,6 +4,7 @@ class TodoActions
       'initData',
       'submitTodo',
       'toggleTodo'
+      'deleteTodo'
     )
 
 window.TodoActions = alt.createActions(TodoActions)

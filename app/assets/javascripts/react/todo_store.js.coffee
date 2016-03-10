@@ -33,12 +33,25 @@ class TodoStore
         console.log(response)
     return false
 
-  onToggleTodo: (todo_id) ->
+  toggleTodo: (todo_id) ->
     $.ajax
       type: 'PUT'
       url: "todos/#{todo_id}"
       success: (response) =>
         _.find(@todos, { id: response.id }).checked = response.checked
+        @emitChange()
+      error: (response) ->
+        console.log('error')
+        console.log(response)
+    return false
+
+  deleteTodo: (todo_id) ->
+    $.ajax
+      type: 'DELETE'
+      url: "todos/#{todo_id}"
+      success: (response) =>
+        _.remove(@todos, (todo) -> todo.id == todo_id)
+        console.log(todo_id)
         @emitChange()
       error: (response) ->
         console.log('error')
