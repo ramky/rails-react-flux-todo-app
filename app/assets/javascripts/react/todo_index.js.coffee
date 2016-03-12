@@ -2,10 +2,10 @@
 
 NewTodo = React.createFactory React.createClass
   getInitialState: ->
-    return { name: '', checked: false }
+    return { name: '', completed: false }
 
   onInputChange: (e) ->
-    @setState({ name: e.target.value, checked: false })
+    @setState({ name: e.target.value, completed: false })
 
   onInputKeydown: (e) ->
     if e.keyCode == 13 # Return key pressed
@@ -14,7 +14,7 @@ NewTodo = React.createFactory React.createClass
   doSubmitAction: (name) ->
     if name.length
       TodoActions.createTodo(this.refs.todo.value)
-      @setState({ name: '', checked: false })
+      @setState({ name: '', completed: false })
 
   newTodoClick: ->
     @doSubmitAction(this.refs.todo.value)
@@ -38,6 +38,15 @@ NewTodo = React.createFactory React.createClass
             i className: 'glyphicon glyphicon-plus'
 
 TodoListItem = React.createFactory React.createClass
+  updateTodo: (e) ->
+    if e.keyCode == 13 # Return key pressed
+      todo = { id: @props.todo.id, name: @props.todo.name }
+      TodoActions.updateTodo(todo)
+
+  refreshTodo: (e)->
+    todo = { id: @props.todo.id, name: e.target.value }
+    TodoActions.refreshTodo(todo)
+
   toggleTodo: ->
     TodoActions.toggleTodo(@props.todo.id)
 
@@ -46,7 +55,7 @@ TodoListItem = React.createFactory React.createClass
 
   render: ->
     inputClassName = 'form-control'
-    if @props.todo.checked
+    if @props.todo.completed
       inputClassName += ' finished'
 
     div className: 'input-group input-group-lg',
@@ -54,10 +63,12 @@ TodoListItem = React.createFactory React.createClass
         input
           type: 'checkbox'
           onChange: @toggleTodo
-          checked: @props.todo.checked
+          checked: @props.todo.completed
       input
         type: 'text'
         value: @props.todo.name
+        onKeyDown: @updateTodo
+        onChange: @refreshTodo
         className: inputClassName
       span className: 'input-group-btn',
         button

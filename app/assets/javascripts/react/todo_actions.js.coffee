@@ -3,6 +3,8 @@ class TodoActions
     @generateActions(
       'initData',
       'createTodo',
+      'refreshTodo',
+      'updateTodo',
       'toggleTodo',
       'deleteTodo',
       'clearCompleted'

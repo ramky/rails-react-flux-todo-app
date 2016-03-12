@@ -24,7 +24,7 @@ class TodoStore
       data:
         todo:
           name: name
-          checked: false
+          completed: false
       success: (response) =>
         @todos.push(response)
         @emitChange()
@@ -33,12 +33,29 @@ class TodoStore
         console.log(response)
     return false
 
-  toggleTodo: (todo_id) ->
+  refreshTodo: (todo) ->
+    _.find(@todos, { id: todo.id }).name = todo.name
+    @emitChange()
+    return false
+
+  updateTodo: (todo) ->
     $.ajax
       type: 'PUT'
-      url: "todos/#{todo_id}"
+      url: "update_name/#{todo.id}"
+      data: { name: todo.name }
       success: (response) =>
-        _.find(@todos, { id: response.id }).checked = response.checked
+        console.log('ok')
+      error: (response) ->
+        console.log('error')
+        console.log(response)
+    return false
+
+  toggleTodo: (todoId) ->
+    $.ajax
+      type: 'PUT'
+      url: "update_completed/#{todoId}"
+      success: (response) =>
+        _.find(@todos, { id: response.id }).completed = response.completed
         @emitChange()
       error: (response) ->
         console.log('error')
@@ -51,7 +68,6 @@ class TodoStore
       url: "todos/#{todo_id}"
       success: (response) =>
         _.remove(@todos, (todo) -> todo.id == todo_id)
-        console.log(todo_id)
         @emitChange()
       error: (response) ->
         console.log('error')
@@ -63,8 +79,7 @@ class TodoStore
       type: 'DELETE'
       url: '/clear_completed'
       success: (response) =>
-        _.remove(@todos, (todo) -> todo.checked == true)
-        console.log(@todos)
+        _.remove(@todos, (todo) -> todo.completed == true)
         @emitChange()
       error: (response) ->
         console.log('error')

@@ -1,1 +1,1 @@
-json.extract!(todo, :id, :name, :checked)
+json.extract!(todo, :id, :name, :completed)
